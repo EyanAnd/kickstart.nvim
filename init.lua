@@ -595,6 +595,7 @@ require('lazy').setup({
         eruby = { 'erb_format', 'prettier' },
         ruby = { 'ruby_lsp' },
         html = { 'prettierd', 'prettier' },
+        go = { 'gofmt', 'goimports', 'gci' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -827,6 +828,7 @@ require('lazy').setup({
     name = 'catppuccin',
     priority = 1000,
     no_italic = true,
+    no_bold = true,
     config = function()
       vim.cmd.colorscheme 'catppuccin-frappe'
     end,
