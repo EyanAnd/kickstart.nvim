@@ -68,6 +68,7 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- filetype to help with html.erb files
 vim.filetype.add {
   extension = {
     erb = 'eruby',
@@ -80,10 +81,11 @@ vim.filetype.add {
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 
-vim.keymap.set('i', '<C-;>', 'copilot#Accept("\\<CR>")', {
-  expr = true,
-  replace_keycodes = false,
-})
+-- Copliot mapping for accepting suggestions
+-- vim.keymap.set('i', '<C-;>', 'copilot#Accept("\\<CR>")', {
+--   expr = true,
+--   replace_keycodes = false,
+-- })
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', ';', ':', { desc = 'CMD enter command mode' })
@@ -812,14 +814,44 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
+  -- {
+  --   'github/copilot.vim',
+  --   lazy = false, -- Load Copilot immediately
+  --   config = function()
+  --     -- Prevent Copilot from taking over the <Tab> key
+  --     vim.g.copilot_no_tab_map = true
+  --     vim.g.copilot_assume_mapped = true
+  --     vim.g.copilot_tab_fallback = ''
+  --   end,
+  -- },
+  -- obsidian nvim for notes
   {
-    'github/copilot.vim',
-    lazy = false, -- Load Copilot immediately
+    'epwalsh/obsidian.nvim',
+    version = '*', -- recommended, use latest release instead of latest commit
+    lazy = true,
+    ft = 'markdown',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
     config = function()
-      -- Prevent Copilot from taking over the <Tab> key
-      vim.g.copilot_no_tab_map = true
-      vim.g.copilot_assume_mapped = true
-      vim.g.copilot_tab_fallback = ''
+      require('obsidian').setup {
+        workspaces = {
+          {
+            name = 'Notes',
+            path = '/Users/eyananderson/Notes',
+          },
+        },
+        daily_notes = {
+          folder = 'NOTES', -- Ensure this folder exists
+          date_format = '%m-%d-%Y',
+          template = 'Templates/Daily Note Template.md', -- Ensure this template file exists in the correct location
+        },
+        templates = {
+          folder = 'Templates', -- This should point to your folder for templates
+          date_format = '%m-%d-%Y',
+          time_format = '%H:%M',
+        },
+      }
     end,
   },
   {
