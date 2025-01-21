@@ -86,6 +86,7 @@ vim.opt.hlsearch = true
 --   expr = true,
 --   replace_keycodes = false,
 -- })
+vim.keymap.set('n', '<leader>ru', ':w<CR>:!python3 %<CR>', { noremap = true, silent = true })
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', ';', ':', { desc = 'CMD enter command mode' })
@@ -495,6 +496,7 @@ require('lazy').setup({
         gopls = {},
         pyright = {},
         ruby_lsp = {},
+        volar = {}, -- for vue
         html = {
           capabilities = capabilities,
           completion = {
@@ -598,12 +600,13 @@ require('lazy').setup({
         ruby = { 'ruby_lsp' },
         html = { 'prettierd', 'prettier' },
         go = { 'gofmt', 'goimports', 'gci' },
+        vue = { 'prettier' },
         -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
+        python = { 'isort', 'black' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
+        javascript = { { 'prettierd', 'prettier' } },
       },
     },
   },
